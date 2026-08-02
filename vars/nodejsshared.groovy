@@ -90,12 +90,13 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh """
+              dir('jenkins-cicd') {
+                 sh """
                     docker build -t ${PROJECT}/${COMPONENT}:${appVersion} .
-                """
+                 """
+                }
             }
         }
-
         /*
         stage('Trivy Image Scan') {
             steps {
