@@ -1,17 +1,17 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
-      version = "6.23.0"
+      source  = "hashicorp/aws"
+      version = ">= 6.52.0, < 7.0.0"
     }
   }
 
   backend "s3" {
-    bucket = "eshur"
-    key    = "roboshop-dev-eks"
-    region = "us-east-1"
+    bucket       = "eshur"
+    key          = "roboshop-dev-eks"
+    region       = "us-east-1"
     use_lockfile = true
-    encrypt = true
+    encrypt      = true
   }
 }
 
