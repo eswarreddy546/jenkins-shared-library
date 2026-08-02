@@ -156,7 +156,7 @@ pipeline {
 
                 stage('Terraform VPC') {
             steps {
-                dir('/home/ec2-user/eks-automation-deployment/00-vpc') {
+                dir('/home/ec2-user/jenkins-terraform-eks/00-vpc') {
 
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
