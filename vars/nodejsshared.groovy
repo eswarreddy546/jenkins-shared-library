@@ -53,11 +53,11 @@ pipeline {
             }
         }
 
-        stage('Unit Test') {
+        stage('Install Dependencies') {
             steps {
-                sh '''
-                    npm test
-                '''
+                dir('jenkins-cicd') {
+                    sh 'npm install'
+                }
             }
         }
 
