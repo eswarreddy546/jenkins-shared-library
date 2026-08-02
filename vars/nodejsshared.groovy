@@ -12,8 +12,8 @@ pipeline {
         COURSE      = "Jenkins"
         appVersion  = ""
         ACC_ID      = "526426842890"
-        PROJECT     = "roboshop"
-        COMPONENT   = "catalogue"
+        PROJECT   = configMap.get("project")
+        COMPONENT = configMap.get("component")
         REGION      = "us-east-1"
 
         ECR_REPO    = "${ACC_ID}.dkr.ecr.${REGION}.amazonaws.com/${PROJECT}/${COMPONENT}"
