@@ -8,11 +8,11 @@ pipeline {
     environment {
         COURSE = "Jenkins"
     }
-    options {
-        timeout(time: 60, unit: 'MINUTES') 
-        disableConcurrentBuilds()
-        // ansiColor('xterm')
-    }
+    // options {
+    //     timeout(time: 60, unit: 'MINUTES') 
+    //     disableConcurrentBuilds()
+    //     // ansiColor('xterm')
+    // }
     
     // parameters {
     //     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
