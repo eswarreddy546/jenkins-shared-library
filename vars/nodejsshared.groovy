@@ -154,9 +154,9 @@ pipeline {
             }
         }
 
-                stage('Terraform VPC') {
+        stage('Terraform VPC') {
             steps {
-                dir('/home/ec2-user/jenkins-terraform-eks/00-vpc') {
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/00-vpc') {
 
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
