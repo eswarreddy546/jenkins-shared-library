@@ -34,14 +34,16 @@ pipeline {
         }
 
         stage('Read Version') {
-            steps {
-                script {
-                    def packageJSON = readJSON file: 'package.json'
-                    appVersion = packageJSON.version
-                    echo "Application Version : ${appVersion}"
-                }
+    steps {
+        dir('jenkins-cicd') {
+            script {
+                def packageJSON = readJSON file: 'package.json'
+                appVersion = packageJSON.version
+                echo "Application Version : ${appVersion}"
             }
         }
+    }
+}
 
         stage('Install Dependencies') {
             steps {
