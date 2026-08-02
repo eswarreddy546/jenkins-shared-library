@@ -176,7 +176,7 @@ pipeline {
 
         stage('Terraform Security Groups') {
             steps {
-                dir('/home/ec2-user/eks-automation-deployment/10-sg') {
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/10-sg') {
 
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
@@ -196,8 +196,7 @@ pipeline {
 
         stage('Terraform Bastion') {
             steps {
-                dir('/home/ec2-user/eks-automation-deployment/20-bastion') {
-
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/20-bastion') {
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
                         credentialsId: 'aws-cred'
@@ -216,8 +215,7 @@ pipeline {
 
         stage('Terraform SG Rules') {
             steps {
-                dir('/home/ec2-user/eks-automation-deployment/30-sg-rules') {
-
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/30-sg-rules') {
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
                         credentialsId: 'aws-cred'
@@ -236,8 +234,7 @@ pipeline {
 
         stage('Terraform ACM') {
             steps {
-                dir('/home/ec2-user/eks-automation-deployment/70-acm') {
-
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/70-acm') {
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
                         credentialsId: 'aws-cred'
@@ -256,8 +253,7 @@ pipeline {
 
         stage('Terraform Frontend ALB') {
             steps {
-                dir('/home/ec2-user/eks-automation-deployment/80-frontend-alb') {
-
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/80-frontend-alb') {
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
                         credentialsId: 'aws-cred'
@@ -276,8 +272,7 @@ pipeline {
 
          stage('Terraform EKS') {
             steps {
-                dir('/home/ec2-user/eks-automation-deployment/90-eks') {
-
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/90-eks'){
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
                         credentialsId: 'aws-cred'
