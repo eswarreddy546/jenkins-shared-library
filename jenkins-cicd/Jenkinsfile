@@ -5,10 +5,10 @@ def configMap = [
     component: "catalogue"
 ]
 
-// if branch is not equal to main, then run CI pipeline
-if (!env.BRANCH_NAME.equalsIgnoreCase('main')) {
-    nodejsshared(configMap)
-}
-else {
-    echo "Please follow the CR process"
-}
+// // if branch is not equal to main, then run CI pipeline
+// if (!env.BRANCH_NAME.equalsIgnoreCase('main')) {
+//     nodejsshared(configMap)
+// }
+// else {
+//     echo "Please follow the CR process"
+// }
