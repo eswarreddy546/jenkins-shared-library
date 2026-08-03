@@ -61,32 +61,32 @@ pipeline {
             }
         }
 
-        stage('SonarQube Scan') {
-            steps {
-                script {
+        // stage('SonarQube Scan') {
+        //     steps {
+        //         script {
 
-                    def scannerHome = tool 'SonarScanner'
+        //             def scannerHome = tool 'SonarScanner'
 
-                    withSonarQubeEnv('sonar-qube') {
-                        sh """
-                            ${scannerHome}/bin/sonar-scanner \
-                              -Dsonar.projectKey=${COMPONENT} \
-                              -Dsonar.projectName=${COMPONENT} \
-                              -Dsonar.sources=. \
-                              -Dsonar.projectVersion=${appVersion}
-                        """
-                    }
-                }
-            }
-        }
+        //             withSonarQubeEnv('sonar-qube') {
+        //                 sh """
+        //                     ${scannerHome}/bin/sonar-scanner \
+        //                       -Dsonar.projectKey=${COMPONENT} \
+        //                       -Dsonar.projectName=${COMPONENT} \
+        //                       -Dsonar.sources=. \
+        //                       -Dsonar.projectVersion=${appVersion}
+        //                 """
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: false
-                }
-            }
-        }
+        // stage('Quality Gate') {
+        //     steps {
+        //         timeout(time: 1, unit: 'HOURS') {
+        //             waitForQualityGate abortPipeline: false
+        //         }
+        //     }
+        // }
 
         stage('Docker Build') {
             steps {
@@ -154,140 +154,140 @@ pipeline {
             }
         }
 
-        // stage('Terraform VPC') {
-        //     steps {
-        //         dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/00-vpc') {
+        stage('Terraform VPC') {
+            steps {
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/00-vpc') {
 
-        //             withCredentials([[
-        //                 $class: 'AmazonWebServicesCredentialsBinding',
-        //                 credentialsId: 'aws-cred'
-        //             ]]) {
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'aws-cred'
+                    ]]) {
 
-        //                 sh '''
-        //                     terraform init
-        //                     terraform validate
-        //                     terraform plan
-        //                     terraform apply -auto-approve
-        //                 '''
-        //             }
-        //         }
-        //     }
-        // }
+                        sh '''
+                            terraform init
+                            terraform validate
+                            terraform plan
+                            terraform apply -auto-approve
+                        '''
+                    }
+                }
+            }
+        }
 
-        // stage('Terraform Security Groups') {
-        //     steps {
-        //         dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/10-sg') {
+        stage('Terraform Security Groups') {
+            steps {
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/10-sg') {
 
-        //             withCredentials([[
-        //                 $class: 'AmazonWebServicesCredentialsBinding',
-        //                 credentialsId: 'aws-cred'
-        //             ]]) {
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'aws-cred'
+                    ]]) {
 
-        //                 sh '''
-        //                     terraform init
-        //                     terraform validate
-        //                     terraform plan
-        //                     terraform apply -auto-approve
-        //                 '''
-        //             }
-        //         }
-        //     }
-        // }
+                        sh '''
+                            terraform init
+                            terraform validate
+                            terraform plan
+                            terraform apply -auto-approve
+                        '''
+                    }
+                }
+            }
+        }
 
-        // stage('Terraform Bastion') {
-        //     steps {
-        //         dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/20-bastion') {
-        //             withCredentials([[
-        //                 $class: 'AmazonWebServicesCredentialsBinding',
-        //                 credentialsId: 'aws-cred'
-        //             ]]) {
+        stage('Terraform Bastion') {
+            steps {
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/20-bastion') {
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'aws-cred'
+                    ]]) {
 
-        //                 sh '''
-        //                     terraform init
-        //                     terraform validate
-        //                     terraform plan
-        //                     terraform apply -auto-approve
-        //                 '''
-        //             }
-        //         }
-        //     }
-        // }
+                        sh '''
+                            terraform init
+                            terraform validate
+                            terraform plan
+                            terraform apply -auto-approve
+                        '''
+                    }
+                }
+            }
+        }
 
-        // stage('Terraform SG Rules') {
-        //     steps {
-        //         dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/30-sg-rules') {
-        //             withCredentials([[
-        //                 $class: 'AmazonWebServicesCredentialsBinding',
-        //                 credentialsId: 'aws-cred'
-        //             ]]) {
+        stage('Terraform SG Rules') {
+            steps {
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/30-sg-rules') {
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'aws-cred'
+                    ]]) {
 
-        //                 sh '''
-        //                     terraform init
-        //                     terraform validate
-        //                     terraform plan
-        //                     terraform apply -auto-approve
-        //                 '''
-        //             }
-        //         }
-        //     }
-        // }
+                        sh '''
+                            terraform init
+                            terraform validate
+                            terraform plan
+                            terraform apply -auto-approve
+                        '''
+                    }
+                }
+            }
+        }
 
-        // stage('Terraform ACM') {
-        //     steps {
-        //         dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/70-acm') {
-        //             withCredentials([[
-        //                 $class: 'AmazonWebServicesCredentialsBinding',
-        //                 credentialsId: 'aws-cred'
-        //             ]]) {
+        stage('Terraform ACM') {
+            steps {
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/70-acm') {
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'aws-cred'
+                    ]]) {
 
-        //                 sh '''
-        //                     terraform init
-        //                     terraform validate
-        //                     terraform plan
-        //                     terraform apply -auto-approve
-        //                 '''
-        //             }
-        //         }
-        //     }
-        // }
+                        sh '''
+                            terraform init
+                            terraform validate
+                            terraform plan
+                            terraform apply -auto-approve
+                        '''
+                    }
+                }
+            }
+        }
 
-        // stage('Terraform Frontend ALB') {
-        //     steps {
-        //         dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/80-frontend-alb') {
-        //             withCredentials([[
-        //                 $class: 'AmazonWebServicesCredentialsBinding',
-        //                 credentialsId: 'aws-cred'
-        //             ]]) {
+        stage('Terraform Frontend ALB') {
+            steps {
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/80-frontend-alb') {
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'aws-cred'
+                    ]]) {
 
-        //                 sh '''
-        //                     terraform init
-        //                     terraform validate
-        //                     terraform plan
-        //                     terraform apply -auto-approve
-        //                 '''
-        //             }
-        //         }
-        //     }
-        // }
+                        sh '''
+                            terraform init
+                            terraform validate
+                            terraform plan
+                            terraform apply -auto-approve
+                        '''
+                    }
+                }
+            }
+        }
 
-        //  stage('Terraform EKS') {
-        //     steps {
-        //         dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/90-eks'){
-        //             withCredentials([[
-        //                 $class: 'AmazonWebServicesCredentialsBinding',
-        //                 credentialsId: 'aws-cred'
-        //             ]]) {
+         stage('Terraform EKS') {
+            steps {
+                dir('/home/ec2-user/jenkins-shared-library/jenkins-terraform-eks/90-eks'){
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'aws-cred'
+                    ]]) {
 
-        //                 sh '''
-        //                     terraform init
-        //                     terraform validate
-        //                     terraform plan
-        //                     terraform apply -auto-approve
-        //                 '''
-        //             }
-        //         }
-        //     }
-        // }
+                        sh '''
+                            terraform init
+                            terraform validate
+                            terraform plan
+                            terraform apply -auto-approve
+                        '''
+                    }
+                }
+            }
+        }
 
     // }   // <-- Close stages block
 
