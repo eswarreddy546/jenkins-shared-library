@@ -1,6 +1,6 @@
 resource "aws_instance" "bastion" {
     ami = local.ami_id
-    instance_type = "t2.small"
+    instance_type = "t3.micro"
     vpc_security_group_ids = [local.bastion_sg_id]
     subnet_id = local.public_subnet_id
     #iam_instance_profile = aws_iam_instance_profile.bastion.name
